@@ -31,46 +31,41 @@ crear_tabla_reparaciones()
 
 def nueva_reparacion():
     ventana_reparacion = tk.Toplevel()
-    ventana_reparacion.title("Nueva Orden de Reparación")
+    ventana_reparacion.title("Nueva Orden de Reparación - Sistema de Gestión")
+    ventana_reparacion.geometry("800x500+200+100")
+    ventana_reparacion.configure(bg="snow2")  # Color de fondo
 
     # Datos del cliente
-    tk.Label(ventana_reparacion, text="Datos del Cliente").pack()
-    nombre_apellido_label = tk.Label(ventana_reparacion, text="Nombre y Apellido:")
-    nombre_apellido_label.pack()
-    nombre_apellido_entry = tk.Entry(ventana_reparacion)
-    nombre_apellido_entry.pack()
+    tk.Label(ventana_reparacion, text="Datos del Cliente", font=("Arial", 12, "bold"), bg="snow2").grid(row=0, column=0, columnspan=2, pady=10)
+    tk.Label(ventana_reparacion, text="Nombre y Apellido:", font=("Arial", 12), bg="snow2").grid(row=1, column=0, sticky="w", padx=10, pady=5)
+    nombre_apellido_entry = tk.Entry(ventana_reparacion, font=("Arial", 12), width=40)  # Ancho aumentado a 40
+    nombre_apellido_entry.grid(row=1, column=1, padx=10, pady=5)
 
-    dni_label = tk.Label(ventana_reparacion, text="DNI:")
-    dni_label.pack()
-    dni_entry = tk.Entry(ventana_reparacion)
-    dni_entry.pack()
+    tk.Label(ventana_reparacion, text="DNI:", font=("Arial", 12), bg="snow2").grid(row=2, column=0, sticky="w", padx=10, pady=5)
+    dni_entry = tk.Entry(ventana_reparacion, font=("Arial", 12), width=40)  # Ancho aumentado a 40
+    dni_entry.grid(row=2, column=1, padx=10, pady=5)
 
-    contacto_label = tk.Label(ventana_reparacion, text="Número de Contacto:")
-    contacto_label.pack()
-    contacto_entry = tk.Entry(ventana_reparacion)
-    contacto_entry.pack()
+    tk.Label(ventana_reparacion, text="Número de Contacto:", font=("Arial", 12), bg="snow2").grid(row=3, column=0, sticky="w", padx=10, pady=5)
+    contacto_entry = tk.Entry(ventana_reparacion, font=("Arial", 12), width=40)  # Ancho aumentado a 40
+    contacto_entry.grid(row=3, column=1, padx=10, pady=5)
 
     # Datos del celular
-    tk.Label(ventana_reparacion, text="Datos del Celular").pack()
-    marca_label = tk.Label(ventana_reparacion, text="Marca:")
-    marca_label.pack()
-    marca_entry = tk.Entry(ventana_reparacion)
-    marca_entry.pack()
+    tk.Label(ventana_reparacion, text="Datos del Celular", font=("Arial", 12, "bold"), bg="snow2").grid(row=4, column=0, columnspan=2, pady=10)
+    tk.Label(ventana_reparacion, text="Marca:", font=("Arial", 12), bg="snow2").grid(row=5, column=0, sticky="w", padx=10, pady=5)
+    marca_entry = tk.Entry(ventana_reparacion, font=("Arial", 12), width=40)  # Ancho aumentado a 40
+    marca_entry.grid(row=5, column=1, padx=10, pady=5)
 
-    modelo_label = tk.Label(ventana_reparacion, text="Modelo:")
-    modelo_label.pack()
-    modelo_entry = tk.Entry(ventana_reparacion)
-    modelo_entry.pack()
+    tk.Label(ventana_reparacion, text="Modelo:", font=("Arial", 12), bg="snow2").grid(row=6, column=0, sticky="w", padx=10, pady=5)
+    modelo_entry = tk.Entry(ventana_reparacion, font=("Arial", 12), width=40)  # Ancho aumentado a 40
+    modelo_entry.grid(row=6, column=1, padx=10, pady=5)
 
-    falla_label = tk.Label(ventana_reparacion, text="Falla:")
-    falla_label.pack()
-    falla_entry = tk.Entry(ventana_reparacion)
-    falla_entry.pack()
+    tk.Label(ventana_reparacion, text="Falla:", font=("Arial", 12), bg="snow2").grid(row=7, column=0, sticky="w", padx=10, pady=5)
+    falla_entry = tk.Entry(ventana_reparacion, font=("Arial", 12), width=40)  # Ancho aumentado a 40
+    falla_entry.grid(row=7, column=1, padx=10, pady=5)
 
-    observaciones_label = tk.Label(ventana_reparacion, text="Observaciones:")
-    observaciones_label.pack()
-    observaciones_entry = tk.Entry(ventana_reparacion)
-    observaciones_entry.pack()
+    tk.Label(ventana_reparacion, text="Observaciones:", font=("Arial", 12), bg="snow2").grid(row=8, column=0, sticky="w", padx=10, pady=5)
+    observaciones_entry = tk.Entry(ventana_reparacion, font=("Arial", 12), width=40)  # Ancho aumentado a 40
+    observaciones_entry.grid(row=8, column=1, padx=10, pady=5)
 
     def finalizar_reparacion():
         nombre_apellido = nombre_apellido_entry.get()
@@ -111,13 +106,25 @@ def nueva_reparacion():
                           f"  Falla: {falla}\n" \
                           f"  Observaciones: {observaciones}"
 
-            messagebox.showinfo("Información de la Reparación", informacion)
+            # Crear una nueva ventana para mostrar la información
+            ventana_info = tk.Toplevel()
+            ventana_info.title("Información de la Reparación")
+            ventana_info.geometry("600x400")  # Tamaño de la ventana aumentado
+            ventana_info.configure(bg="snow2") #color de fondo
+
+            # Crear un widget Text para mostrar la información con formato
+            texto_info = tk.Text(ventana_info, font=("Arial", 14), wrap=tk.WORD, bg="snow2") #fuente mas grande y color de fondo
+            texto_info.insert(tk.END, informacion)
+            texto_info.config(state=tk.DISABLED)  # Hacer que el texto sea de solo lectura
+            texto_info.pack(padx=20, pady=20, fill=tk.BOTH, expand=True) #padding y expandir el texto
+
             ventana_reparacion.destroy()
+
         except sqlite3.Error as e:
             messagebox.showerror("Error", f"Error al guardar la orden de reparación: {e}")
 
-    boton_finalizar = tk.Button(ventana_reparacion, text="Guardar Orden", command=finalizar_reparacion)
-    boton_finalizar.pack()
+    boton_finalizar = tk.Button(ventana_reparacion, text="Guardar Orden", command=finalizar_reparacion, font=("Arial", 12), bg="#B2EBF2", padx=20, pady=10)
+    boton_finalizar.grid(row=9, column=0, columnspan=2, pady=20)
 
 def consultar_reparacion():
     consulta.consultar_reparacion()
@@ -134,4 +141,3 @@ if __name__ == "__main__": #agrega esta proteccion.
     boton_consultar_reparacion.pack()
 
     ventana_principal.mainloop()
-

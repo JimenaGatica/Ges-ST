@@ -6,25 +6,26 @@ import consulta
 
 def mostrar_menu_principal(ventana_inicio):
     ventana_menu = tk.Toplevel()
-    ventana_menu.title("Menú")
-    ventana_menu.geometry("600x600")
+    ventana_menu.title("Menú Principal - Sistema de Gestión")
+    ventana_menu.geometry("900x400+200+100")
+    ventana_menu.configure(bg="snow2")  # Color de fondo
 
     def volver_a_inicio():
         ventana_menu.destroy()
         ventana_inicio.deiconify()
-        
 
-    boton_usuarios = tk.Button(ventana_menu, text="Crear Nuevo Usuario", command=usuarios.crear_usuario)
-    boton_usuarios.pack()
+    # Botones con texto y estilo mejorado
+    boton_usuarios = tk.Button(ventana_menu, text="Crear Nuevo Usuario", command=usuarios.crear_usuario, font=("Arial", 12), bg="#B2EBF2", padx=20, pady=10)
+    boton_usuarios.place(relx=0.25, rely=0.2, anchor=tk.CENTER)
 
-    boton_reparaciones = tk.Button(ventana_menu, text="Nueva Orden de Reparación", command=reparaciones.nueva_reparacion)
-    boton_reparaciones.pack()
+    boton_reparaciones = tk.Button(ventana_menu, text="Nueva Orden de Reparación", command=reparaciones.nueva_reparacion, font=("Arial", 12), bg="#B2EBF2", padx=20, pady=10)
+    boton_reparaciones.place(relx=0.75, rely=0.2, anchor=tk.CENTER)
 
-    boton_presupuestos = tk.Button(ventana_menu, text="Presupuesto", command=presupuestos.presupuesto)
-    boton_presupuestos.pack()
-    
-    boton_consultar_reparacion = tk.Button(ventana_menu, text="Consultar Reparación", command=consulta.consultar_reparacion)
-    boton_consultar_reparacion.pack()
+    boton_presupuestos = tk.Button(ventana_menu, text="Presupuesto", command=presupuestos.presupuesto, font=("Arial", 12), bg="#B2EBF2", padx=20, pady=10)
+    boton_presupuestos.place(relx=0.25, rely=0.5, anchor=tk.CENTER)
 
-    boton_salir = tk.Button(ventana_menu, text="Salir", command=volver_a_inicio)
-    boton_salir.pack()
+    boton_consultar_reparacion = tk.Button(ventana_menu, text="Consultar Reparación", command=consulta.consultar_reparacion, font=("Arial", 12), bg="#B2EBF2", padx=20, pady=10)
+    boton_consultar_reparacion.place(relx=0.75, rely=0.5, anchor=tk.CENTER)
+
+    boton_salir = tk.Button(ventana_menu, text="Salir", command=volver_a_inicio, font=("Arial", 12), bg="#B2EBF2", padx=20, pady=10)
+    boton_salir.place(relx=0.5, rely=0.7, anchor=tk.CENTER)
