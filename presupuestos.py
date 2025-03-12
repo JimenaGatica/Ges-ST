@@ -5,19 +5,19 @@ import sqlite3
 def presupuesto():
     ventana_presupuesto = tk.Toplevel()
     ventana_presupuesto.title("Generar Presupuesto - Sistema de Gestión")
-    ventana_presupuesto.geometry("500x400+200+100")
+    ventana_presupuesto.geometry("900x400+200+100")
     ventana_presupuesto.configure(bg="snow2")
 
     def calcular_presupuesto():
         ventana_calcular = tk.Toplevel()
         ventana_calcular.title("Calcular Presupuesto")
-        ventana_calcular.geometry("500x400+200+100")
+        ventana_calcular.geometry("900x400+200+100")
         ventana_calcular.configure(bg="snow2")
 
-        valor_repuesto_label = tk.Label(ventana_calcular, text="Valor del Repuesto:", bg="snow2")
-        valor_repuesto_label.grid(row=0, column=0, padx=10, pady=5)
-        valor_repuesto_entry = tk.Entry(ventana_calcular)
-        valor_repuesto_entry.grid(row=0, column=1, padx=10, pady=5)
+        valor_repuesto_label = tk.Label(ventana_calcular, text="Valor del Repuesto:", font=("Arial", 16), bg="snow2")
+        valor_repuesto_label.place(relx=0.5, rely=0.3, anchor=tk.CENTER)
+        valor_repuesto_entry = tk.Entry(ventana_calcular, width=40)
+        valor_repuesto_entry.place(relx=0.5, rely=0.50, anchor=tk.CENTER)
 
         def calcular():
             try:
@@ -36,7 +36,7 @@ def presupuesto():
                 def agregar_a_reparacion():
                     ventana_agregar_reparacion = tk.Toplevel()
                     ventana_agregar_reparacion.title("Agregar a Reparación")
-                    ventana_agregar_reparacion.geometry("300x100")
+                    ventana_agregar_reparacion.geometry("900x400+200+100")
                     ventana_agregar_reparacion.configure(bg="snow2")
 
                     numero_orden_label = tk.Label(ventana_agregar_reparacion, text="Número de Orden:", bg="snow2")
@@ -60,19 +60,21 @@ def presupuesto():
                     boton_agregar = tk.Button(ventana_agregar_reparacion, text="Agregar", command=agregar)
                     boton_agregar.grid(row=1, column=0, columnspan=2, pady=10)
 
-                boton_agregar_reparacion = tk.Button(ventana_calcular, text="Agregar a Reparación", command=agregar_a_reparacion)
+                boton_agregar_reparacion = tk.Button(ventana_calcular, text="Agregar a Reparación", command=agregar_a_reparacion, font=("Arial", 12), bg="#B2EBF2", padx=20, pady=10)
                 boton_agregar_reparacion.grid(row=2, column=0, columnspan=2, pady=10)
 
             except ValueError:
                 messagebox.showerror("Error", "Ingrese un valor numérico válido")
 
-        boton_calcular = tk.Button(ventana_calcular, text="Calcular", command=calcular)
-        boton_calcular.grid(row=1, column=0, columnspan=2, pady=10)
+        boton_calcular = tk.Button(ventana_calcular, text="Calcular", command=calcular, font=("Arial", 12), bg="#B2EBF2", padx=20, pady=10)
+        boton_calcular.place(relx=0.5, rely=0.70, anchor=tk.CENTER)
+
+
 
     def agregar_presupuesto_personalizado():
         ventana_personalizado = tk.Toplevel()
         ventana_personalizado.title("Presupuesto Personalizado")
-        ventana_personalizado.geometry("300x150")
+        ventana_personalizado.geometry("900x400+200+100")
         ventana_personalizado.configure(bg="snow2")
 
         pago_anticipado_label = tk.Label(ventana_personalizado, text="Pago Anticipado:", bg="snow2")
@@ -92,7 +94,7 @@ def presupuesto():
                 def agregar_a_reparacion():
                     ventana_agregar_reparacion = tk.Toplevel()
                     ventana_agregar_reparacion.title("Agregar a Reparación")
-                    ventana_agregar_reparacion.geometry("300x100")
+                    ventana_agregar_reparacion.geometry("900x400+200+100")
                     ventana_agregar_reparacion.configure(bg="snow2")
 
                     numero_orden_label = tk.Label(ventana_agregar_reparacion, text="Número de Orden:", bg="snow2")
@@ -122,11 +124,12 @@ def presupuesto():
             except ValueError:
                 messagebox.showerror("Error", "Ingrese un valor numérico válido")
 
-        boton_calcular_personalizado = tk.Button(ventana_personalizado, text="Calcular", command=calcular_personalizado)
+        boton_calcular_personalizado = tk.Button(ventana_personalizado, text="Calcular", command=calcular_personalizado,  font=("Arial", 12), bg="#B2EBF2", padx=20, pady=10)
         boton_calcular_personalizado.grid(row=1, column=0, columnspan=2, pady=10)
 
-    boton_calcular_presupuesto = tk.Button(ventana_presupuesto, text="Calcular Presupuesto", command=calcular_presupuesto)
-    boton_calcular_presupuesto.pack(pady=10)
+    boton_calcular_presupuesto = tk.Button(ventana_presupuesto, text="Calcular Presupuesto", command=calcular_presupuesto, font=("Arial", 12), bg="#B2EBF2", padx=20, pady=10)
+    boton_calcular_presupuesto.place(relx=0.3, rely=0.45, anchor=tk.CENTER)
 
-    boton_presupuesto_personalizado = tk.Button(ventana_presupuesto, text="Agregar Presupuesto Personalizado", command=agregar_presupuesto_personalizado)
-    boton_presupuesto_personalizado.pack(pady=10)
+
+    boton_presupuesto_personalizado = tk.Button(ventana_presupuesto, text="Agregar Presupuesto Personalizado", command=agregar_presupuesto_personalizado, font=("Arial", 12), bg="#B2EBF2", padx=20, pady=10)
+    boton_presupuesto_personalizado.place(relx=0.7, rely=0.45, anchor=tk.CENTER)
