@@ -122,15 +122,16 @@ def nueva_reparacion():
 def consultar_reparacion():
     consulta.consultar_reparacion()
 
-# Ventana principal
-ventana_principal = tk.Tk()
-ventana_principal.title("Gestión de Reparaciones")
+if __name__ == "__main__": #agrega esta proteccion.
+    # Ventana principal
+    ventana_principal = tk.Tk()
+    ventana_principal.title("Gestión de Reparaciones")
 
-boton_nueva_reparacion = tk.Button(ventana_principal, text="Nueva Reparación", command=nueva_reparacion)
-boton_nueva_reparacion.pack()
+    boton_nueva_reparacion = tk.Button(ventana_principal, text="Nueva Reparación", command=nueva_reparacion)
+    boton_nueva_reparacion.pack()
 
-boton_consultar_reparacion = tk.Button(ventana_principal, text="Consultar Reparación", command=consultar_reparacion)
-boton_consultar_reparacion.pack()
+    boton_consultar_reparacion = tk.Button(ventana_principal, text="Consultar Reparación", command=consultar_reparacion)
+    boton_consultar_reparacion.pack()
 
-ventana_principal.mainloop()
+    ventana_principal.mainloop()
 
