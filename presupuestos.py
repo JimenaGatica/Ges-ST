@@ -4,16 +4,20 @@ import sqlite3
 
 def presupuesto():
     ventana_presupuesto = tk.Toplevel()
-    ventana_presupuesto.title("Presupuesto")
+    ventana_presupuesto.title("Generar Presupuesto - Sistema de Gestión")
+    ventana_presupuesto.geometry("500x400+200+100")
+    ventana_presupuesto.configure(bg="snow2")
 
     def calcular_presupuesto():
         ventana_calcular = tk.Toplevel()
         ventana_calcular.title("Calcular Presupuesto")
+        ventana_calcular.geometry("500x400+200+100")
+        ventana_calcular.configure(bg="snow2")
 
-        valor_repuesto_label = tk.Label(ventana_calcular, text="Valor del Repuesto:")
-        valor_repuesto_label.pack()
+        valor_repuesto_label = tk.Label(ventana_calcular, text="Valor del Repuesto:", bg="snow2")
+        valor_repuesto_label.grid(row=0, column=0, padx=10, pady=5)
         valor_repuesto_entry = tk.Entry(ventana_calcular)
-        valor_repuesto_entry.pack()
+        valor_repuesto_entry.grid(row=0, column=1, padx=10, pady=5)
 
         def calcular():
             try:
@@ -32,11 +36,13 @@ def presupuesto():
                 def agregar_a_reparacion():
                     ventana_agregar_reparacion = tk.Toplevel()
                     ventana_agregar_reparacion.title("Agregar a Reparación")
+                    ventana_agregar_reparacion.geometry("300x100")
+                    ventana_agregar_reparacion.configure(bg="snow2")
 
-                    numero_orden_label = tk.Label(ventana_agregar_reparacion, text="Número de Orden:")
-                    numero_orden_label.pack()
+                    numero_orden_label = tk.Label(ventana_agregar_reparacion, text="Número de Orden:", bg="snow2")
+                    numero_orden_label.grid(row=0, column=0, padx=10, pady=5)
                     numero_orden_entry = tk.Entry(ventana_agregar_reparacion)
-                    numero_orden_entry.pack()
+                    numero_orden_entry.grid(row=0, column=1, padx=10, pady=5)
 
                     def agregar():
                         numero_orden = numero_orden_entry.get()
@@ -52,25 +58,27 @@ def presupuesto():
                             messagebox.showerror("Error", f"Error al agregar el presupuesto: {e}")
 
                     boton_agregar = tk.Button(ventana_agregar_reparacion, text="Agregar", command=agregar)
-                    boton_agregar.pack()
+                    boton_agregar.grid(row=1, column=0, columnspan=2, pady=10)
 
                 boton_agregar_reparacion = tk.Button(ventana_calcular, text="Agregar a Reparación", command=agregar_a_reparacion)
-                boton_agregar_reparacion.pack()
+                boton_agregar_reparacion.grid(row=2, column=0, columnspan=2, pady=10)
 
             except ValueError:
                 messagebox.showerror("Error", "Ingrese un valor numérico válido")
 
         boton_calcular = tk.Button(ventana_calcular, text="Calcular", command=calcular)
-        boton_calcular.pack()
+        boton_calcular.grid(row=1, column=0, columnspan=2, pady=10)
 
     def agregar_presupuesto_personalizado():
         ventana_personalizado = tk.Toplevel()
         ventana_personalizado.title("Presupuesto Personalizado")
+        ventana_personalizado.geometry("300x150")
+        ventana_personalizado.configure(bg="snow2")
 
-        pago_anticipado_label = tk.Label(ventana_personalizado, text="Pago Anticipado:")
-        pago_anticipado_label.pack()
+        pago_anticipado_label = tk.Label(ventana_personalizado, text="Pago Anticipado:", bg="snow2")
+        pago_anticipado_label.grid(row=0, column=0, padx=10, pady=5)
         pago_anticipado_entry = tk.Entry(ventana_personalizado)
-        pago_anticipado_entry.pack()
+        pago_anticipado_entry.grid(row=0, column=1, padx=10, pady=5)
 
         def calcular_personalizado():
             try:
@@ -84,11 +92,13 @@ def presupuesto():
                 def agregar_a_reparacion():
                     ventana_agregar_reparacion = tk.Toplevel()
                     ventana_agregar_reparacion.title("Agregar a Reparación")
+                    ventana_agregar_reparacion.geometry("300x100")
+                    ventana_agregar_reparacion.configure(bg="snow2")
 
-                    numero_orden_label = tk.Label(ventana_agregar_reparacion, text="Número de Orden:")
-                    numero_orden_label.pack()
+                    numero_orden_label = tk.Label(ventana_agregar_reparacion, text="Número de Orden:", bg="snow2")
+                    numero_orden_label.grid(row=0, column=0, padx=10, pady=5)
                     numero_orden_entry = tk.Entry(ventana_agregar_reparacion)
-                    numero_orden_entry.pack()
+                    numero_orden_entry.grid(row=0, column=1, padx=10, pady=5)
 
                     def agregar():
                         numero_orden = numero_orden_entry.get()
@@ -104,19 +114,19 @@ def presupuesto():
                             messagebox.showerror("Error", f"Error al agregar el presupuesto: {e}")
 
                     boton_agregar = tk.Button(ventana_agregar_reparacion, text="Agregar", command=agregar)
-                    boton_agregar.pack()
+                    boton_agregar.grid(row=1, column=0, columnspan=2, pady=10)
 
                 boton_agregar_reparacion = tk.Button(ventana_personalizado, text="Agregar a Reparación", command=agregar_a_reparacion)
-                boton_agregar_reparacion.pack()
+                boton_agregar_reparacion.grid(row=2, column=0, columnspan=2, pady=10)
 
             except ValueError:
                 messagebox.showerror("Error", "Ingrese un valor numérico válido")
 
         boton_calcular_personalizado = tk.Button(ventana_personalizado, text="Calcular", command=calcular_personalizado)
-        boton_calcular_personalizado.pack()
+        boton_calcular_personalizado.grid(row=1, column=0, columnspan=2, pady=10)
 
     boton_calcular_presupuesto = tk.Button(ventana_presupuesto, text="Calcular Presupuesto", command=calcular_presupuesto)
-    boton_calcular_presupuesto.pack()
+    boton_calcular_presupuesto.pack(pady=10)
 
     boton_presupuesto_personalizado = tk.Button(ventana_presupuesto, text="Agregar Presupuesto Personalizado", command=agregar_presupuesto_personalizado)
-    boton_presupuesto_personalizado.pack()
+    boton_presupuesto_personalizado.pack(pady=10)

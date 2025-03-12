@@ -24,7 +24,7 @@ def verificar_credenciales():
 
 ventana_inicio = tk.Tk()
 ventana_inicio.title("Inicio de Sesión - Sistema de Gestión")  # Título más llamativo
-ventana_inicio.geometry("700x500")  # Ajuste de la geometría
+ventana_inicio.geometry("700x500+300+100")  # Ajuste de la geometría
 
 # Etiqueta de bienvenida
 bienvenida_label = tk.Label(ventana_inicio, text="Bienvenido a su Sistema de Gestión", font=("Arial", 16))
