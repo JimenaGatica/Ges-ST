@@ -123,8 +123,8 @@ def nueva_reparacion():
         except sqlite3.Error as e:
             messagebox.showerror("Error", f"Error al guardar la orden de reparación: {e}")
 
-    boton_finalizar = tk.Button(ventana_reparacion, text="Guardar Orden", command=finalizar_reparacion, font=("Arial", 12), bg="#B2EBF2", padx=20, pady=10)
-    boton_finalizar.grid(row=9, column=0, columnspan=2, pady=20)
+    boton_finalizar = tk.Button (ventana_reparacion, text="Guardar Orden", command=finalizar_reparacion, font=("Arial", 12), bg="#B2EBF2")
+    boton_finalizar.place(relx=0.5, rely=0.8, anchor=tk.CENTER)
 
 def consultar_reparacion():
     consulta.consultar_reparacion()

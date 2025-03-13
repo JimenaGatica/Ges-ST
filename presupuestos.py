@@ -31,7 +31,20 @@ def presupuesto():
                 resultado = f"Costo del Repuesto: {costo_repuesto}\n" \
                             f"Pago Anticipado: {valor_pago_anticipado}\n" \
                             f"Pago Total: {valor_pago_total}"
-                messagebox.showinfo("Resultado", resultado)
+                
+                # Ventana para mostrar el resultado
+                ventana_resultado = tk.Toplevel()
+                ventana_resultado.title("Resultado del Presupuesto")
+                ventana_resultado.geometry("600x400")
+                ventana_resultado.configure(bg="snow2")
+
+            # Widget Text para mostrar el resultado con formato
+                texto_resultado = tk.Text(ventana_resultado, font=("Arial", 14), wrap=tk.WORD, bg="snow2")
+                texto_resultado.insert(tk.END, resultado)
+                texto_resultado.config(state=tk.DISABLED)
+                texto_resultado.pack(padx=20, pady=20, fill=tk.BOTH, expand=True)
+
+     
 
                 def agregar_a_reparacion():
                     ventana_agregar_reparacion = tk.Toplevel()
@@ -39,10 +52,11 @@ def presupuesto():
                     ventana_agregar_reparacion.geometry("900x400+200+100")
                     ventana_agregar_reparacion.configure(bg="snow2")
 
-                    numero_orden_label = tk.Label(ventana_agregar_reparacion, text="Número de Orden:", bg="snow2")
-                    numero_orden_label.grid(row=0, column=0, padx=10, pady=5)
-                    numero_orden_entry = tk.Entry(ventana_agregar_reparacion)
-                    numero_orden_entry.grid(row=0, column=1, padx=10, pady=5)
+                    numero_orden_label = tk.Label(ventana_agregar_reparacion, text="Número de Orden:", font=("Arial", 16), bg="snow2")
+                    numero_orden_label.place(relx=0.5, rely=0.3, anchor=tk.CENTER)
+                    numero_orden_entry = tk.Entry(ventana_agregar_reparacion, width=40)
+                    numero_orden_entry.place(relx=0.5, rely=0.50, anchor=tk.CENTER)
+
 
                     def agregar():
                         numero_orden = numero_orden_entry.get()
@@ -57,17 +71,17 @@ def presupuesto():
                         except sqlite3.Error as e:
                             messagebox.showerror("Error", f"Error al agregar el presupuesto: {e}")
 
-                    boton_agregar = tk.Button(ventana_agregar_reparacion, text="Agregar", command=agregar)
-                    boton_agregar.grid(row=1, column=0, columnspan=2, pady=10)
+                    boton_agregar = tk.Button(ventana_agregar_reparacion, text="Agregar", command=agregar, font=("Arial", 12), bg="#B2EBF2", padx=20, pady=10)
+                    boton_agregar.place(relx=0.5, rely=0.70, anchor=tk.CENTER)
 
                 boton_agregar_reparacion = tk.Button(ventana_calcular, text="Agregar a Reparación", command=agregar_a_reparacion, font=("Arial", 12), bg="#B2EBF2", padx=20, pady=10)
-                boton_agregar_reparacion.grid(row=2, column=0, columnspan=2, pady=10)
+                boton_agregar_reparacion.place(relx=0.6, rely=0.70, anchor=tk.CENTER)
 
             except ValueError:
                 messagebox.showerror("Error", "Ingrese un valor numérico válido")
 
         boton_calcular = tk.Button(ventana_calcular, text="Calcular", command=calcular, font=("Arial", 12), bg="#B2EBF2", padx=20, pady=10)
-        boton_calcular.place(relx=0.5, rely=0.70, anchor=tk.CENTER)
+        boton_calcular.place(relx=0.4, rely=0.70, anchor=tk.CENTER)
 
 
 
@@ -89,7 +103,19 @@ def presupuesto():
 
                 resultado = f"Pago Anticipado: {pago_anticipado}\n" \
                             f"Pago Total: {pago_total}"
-                messagebox.showinfo("Resultado", resultado)
+                # Ventana para mostrar el resultado
+                ventana_resultado = tk.Toplevel()
+                ventana_resultado.title("Resultado del Cálculo Personalizado")
+                ventana_resultado.geometry("600x400")
+                ventana_resultado.configure(bg="snow2")
+
+            # Widget Text para mostrar el resultado con formato
+                texto_resultado = tk.Text(ventana_resultado, font=("Arial", 14), wrap=tk.WORD, bg="snow2")
+                texto_resultado.insert(tk.END, resultado)
+                texto_resultado.config(state=tk.DISABLED)
+                texto_resultado.pack(padx=20, pady=20, fill=tk.BOTH, expand=True)
+
+ 
 
                 def agregar_a_reparacion():
                     ventana_agregar_reparacion = tk.Toplevel()
@@ -115,11 +141,11 @@ def presupuesto():
                         except sqlite3.Error as e:
                             messagebox.showerror("Error", f"Error al agregar el presupuesto: {e}")
 
-                    boton_agregar = tk.Button(ventana_agregar_reparacion, text="Agregar", command=agregar)
-                    boton_agregar.grid(row=1, column=0, columnspan=2, pady=10)
+                    boton_agregar = tk.Button(ventana_agregar_reparacion, text="Agregar", command=agregar, font=("Arial", 12), bg="#B2EBF2", padx=20, pady=10)
+                    boton_agregar.place(relx=0.5, rely=0.70, anchor=tk.CENTER)
 
-                boton_agregar_reparacion = tk.Button(ventana_personalizado, text="Agregar a Reparación", command=agregar_a_reparacion)
-                boton_agregar_reparacion.grid(row=2, column=0, columnspan=2, pady=10)
+                boton_agregar_reparacion = tk.Button(ventana_personalizado, text="Agregar a Reparación", command=agregar_a_reparacion, font=("Arial", 12), bg="#B2EBF2", padx=20, pady=10)
+                boton_agregar_reparacion.place(relx=0.5, rely=0.70, anchor=tk.CENTER)
 
             except ValueError:
                 messagebox.showerror("Error", "Ingrese un valor numérico válido")
