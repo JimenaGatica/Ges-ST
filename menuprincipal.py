@@ -3,6 +3,7 @@ import usuarios
 import reparaciones
 import presupuestos
 import consulta
+import estado  # Importa el archivo estado.py
 
 def mostrar_menu_principal(ventana_inicio):
     ventana_menu = tk.Toplevel()
@@ -27,5 +28,8 @@ def mostrar_menu_principal(ventana_inicio):
     boton_consultar_reparacion = tk.Button(ventana_menu, text="Consultar Reparación", command=consulta.consultar_reparacion, font=("Arial", 12), bg="#B2EBF2", padx=20, pady=10)
     boton_consultar_reparacion.place(relx=0.75, rely=0.5, anchor=tk.CENTER)
 
+    boton_estado_reparacion = tk.Button(ventana_menu, text="Estado de Reparación", command=estado.gestion_estados, font=("Arial", 12), bg="#B2EBF2", padx=20, pady=10)
+    boton_estado_reparacion.place(relx=0.25, rely=0.8, anchor=tk.CENTER)
+
     boton_salir = tk.Button(ventana_menu, text="Salir", command=volver_a_inicio, font=("Arial", 12), bg="#B2EBF2", padx=20, pady=10)
-    boton_salir.place(relx=0.5, rely=0.7, anchor=tk.CENTER)
+    boton_salir.place(relx=0.75, rely=0.8, anchor=tk.CENTER)

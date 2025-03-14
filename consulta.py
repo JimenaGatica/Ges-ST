@@ -30,6 +30,11 @@ def consultar_reparacion():
                 conexion.close()
 
                 if resultado:
+
+                    fecha_ingreso = datetime.datetime.strptime(resultado[8], "%Y-%m-%d %H:%M:%S").strftime("%H:%M, %d/%m/%Y")
+                    fecha_estado = datetime.datetime.strptime(resultado[10], "%Y-%m-%d %H:%M:%S.%f").strftime("%H:%M, %d/%m/%Y")
+
+
                     informacion = f"Número de Orden: {resultado[0]}\n" \
                                   f"Nombre y Apellido: {resultado[1]}\n" \
                                   f"DNI: {resultado[2]}\n" \
@@ -44,7 +49,7 @@ def consultar_reparacion():
 
                     ventana_informacion = tk.Toplevel()
                     ventana_informacion.title("Información de la Reparación")
-                    ventana_informacion.geometry("600x400")
+                    ventana_informacion.geometry("600x900")
                     ventana_informacion.configure(bg="snow2")
 
                     texto_informacion = tk.Text(ventana_informacion, font=("Arial", 14), wrap=tk.WORD, bg="snow2")
@@ -52,9 +57,9 @@ def consultar_reparacion():
                     texto_informacion.config(state=tk.DISABLED)
                     texto_informacion.pack(padx=20, pady=20, fill=tk.BOTH, expand=True)
 
-                    def modificar_estado():
+                    def modificar_estado_reparacion():
                         menu_estado = tk.Menu(boton_estado, tearoff=0)
-                        estados = ["EN REVISION", "A ESPERA DE REPUESTO", "REPARADO", "REPARADO Y RETIRADO", "RETIRADO SIN REPARAR"]
+                        estados = ["INGRESADO", "EN REVISION", "A ESPERA DE REPUESTO", "REPARADO", "REPARADO Y RETIRADO", "RETIRADO SIN REPARAR"]
 
                         def actualizar_estado(nuevo_estado):
                             try:
@@ -74,39 +79,8 @@ def consultar_reparacion():
                         boton_estado["menu"] = menu_estado
 
                     boton_estado = tk.Menubutton(ventana_informacion, text="Modificar Estado", relief=tk.RAISED)
-                    boton_estado.pack()
-                    modificar_estado()
-
-                    def agregar_observacion():
-                        ventana_agregar_observacion = tk.Toplevel()
-                        ventana_agregar_observacion.title("Agregar Observación")
-                        ventana_agregar_observacion.geometry("900x400+200+100")
-                        ventana_agregar_observacion.configure(bg="snow2")
-
-                        nueva_observacion_label = tk.Label(ventana_agregar_observacion, text="Nueva Observación:", font=("Arial", 16), bg="snow2")
-                        nueva_observacion_label.place(relx=0.5, rely=0.3, anchor=tk.CENTER)
-                        nueva_observacion_entry = tk.Entry(ventana_agregar_observacion, width=40)
-                        nueva_observacion_entry.place(relx=0.5, rely=0.50, anchor=tk.CENTER)
-
-                        def guardar_observacion():
-                            nueva_observacion = nueva_observacion_entry.get()
-                            try:
-                                conexion = sqlite3.connect("reparaciones.db")
-                                cursor = conexion.cursor()
-                                cursor.execute("UPDATE reparaciones SET observaciones = observaciones || ? WHERE numero_orden = ?", (f"\n{nueva_observacion}", numero_orden))
-                                conexion.commit()
-                                conexion.close()
-                                messagebox.showinfo("Observación Agregada", "La observación ha sido agregada.")
-                                ventana_agregar_observacion.destroy()
-                                ventana_informacion.destroy()
-                            except sqlite3.Error as e:
-                                messagebox.showerror("Error", f"Error al agregar la observación: {e}")
-
-                        boton_guardar_observacion = tk.Button(ventana_agregar_observacion, text="Guardar Observación", command=guardar_observacion, font=("Arial", 12), bg="#B2EBF2", padx=20, pady=10)
-                        boton_guardar_observacion.place(relx=0.5, rely=0.70, anchor=tk.CENTER)
-
-                    boton_agregar_observacion = tk.Button(ventana_informacion, text="Agregar Observación", command=agregar_observacion, font=("Arial", 12), bg="#B2EBF2", padx=20, pady=10)
-                    boton_agregar_observacion.pack()
+                    boton_estado.place(relx=0.5, rely=0.80, anchor= tk.CENTER )
+                    modificar_estado_reparacion()
 
                 else:
                     messagebox.showinfo("Información", "No se encontró la reparación")
@@ -139,6 +113,10 @@ def consultar_reparacion():
                 if resultados:
                     informacion = ""
                     for resultado in resultados:
+
+                        fecha_ingreso = datetime.datetime.strptime(resultado[8], "%Y-%m-%d %H:%M:%S").strftime("%H:%M, %d/%m/%Y")
+                        fecha_estado = datetime.datetime.strptime(resultado[10], "%Y-%m-%d %H:%M:%S.%f").strftime("%H:%M, %d/%m/%Y")
+
                         informacion += f"Número de Orden: {resultado[0]}\n" \
                                        f"Nombre y Apellido: {resultado[1]}\n" \
                                        f"DNI: {resultado[2]}\n" \
@@ -160,6 +138,31 @@ def consultar_reparacion():
                     texto_informacion.insert(tk.END, informacion)
                     texto_informacion.config(state=tk.DISABLED)
                     texto_informacion.pack(padx=20, pady=20, fill=tk.BOTH, expand=True)
+
+                    def modificar_estado_reparacion():
+                        menu_estado = tk.Menu(boton_estado, tearoff=0)
+                        estados = ["INGRESADO", "EN REVISION", "A ESPERA DE REPUESTO", "REPARADO", "REPARADO Y RETIRADO", "RETIRADO SIN REPARAR"]
+
+                        def actualizar_estado(nuevo_estado):
+                            try:
+                                conexion = sqlite3.connect("reparaciones.db")
+                                cursor = conexion.cursor()
+                                cursor.execute("UPDATE reparaciones SET estado_reparacion = ?, fecha_estado = ? WHERE numero_orden = ?", (nuevo_estado, datetime.datetime.now(), resultado[0]))
+                                conexion.commit()
+                                conexion.close()
+                                messagebox.showinfo("Estado Actualizado", "El estado de la reparación ha sido actualizado.")
+                                ventana_informacion.destroy()
+                            except sqlite3.Error as e:
+                                messagebox.showerror("Error", f"Error al actualizar el estado: {e}")
+
+                        for estado in estados:
+                            menu_estado.add_command(label=estado, command=lambda e=estado: actualizar_estado(e))
+
+                        boton_estado["menu"] = menu_estado
+
+                    boton_estado = tk.Menubutton(ventana_informacion, text="Modificar Estado", relief=tk.RAISED)
+                    boton_estado.pack()
+                    modificar_estado_reparacion()
 
                 else:
                     messagebox.showinfo("Información", "No se encontró la reparación")
