@@ -32,7 +32,7 @@ def consultar_reparacion():
                 if resultado:
 
                     fecha_ingreso = datetime.datetime.strptime(resultado[8], "%Y-%m-%d %H:%M:%S").strftime("%H:%M, %d/%m/%Y")
-                    fecha_estado = datetime.datetime.strptime(resultado[10], "%Y-%m-%d %H:%M:%S.%f").strftime("%H:%M, %d/%m/%Y")
+                    fecha_estado = datetime.datetime.strptime(resultado[10], "%Y-%m-%d %H:%M:%S").strftime("%H:%M, %d/%m/%Y")
 
 
                     informacion = f"Número de Orden: {resultado[0]}\n" \
@@ -115,7 +115,7 @@ def consultar_reparacion():
                     for resultado in resultados:
 
                         fecha_ingreso = datetime.datetime.strptime(resultado[8], "%Y-%m-%d %H:%M:%S").strftime("%H:%M, %d/%m/%Y")
-                        fecha_estado = datetime.datetime.strptime(resultado[10], "%Y-%m-%d %H:%M:%S.%f").strftime("%H:%M, %d/%m/%Y")
+                        fecha_estado = datetime.datetime.strptime(resultado[10], "%Y-%m-%d %H:%M:%S").strftime("%H:%M, %d/%m/%Y")
 
                         informacion += f"Número de Orden: {resultado[0]}\n" \
                                        f"Nombre y Apellido: {resultado[1]}\n" \
@@ -131,7 +131,7 @@ def consultar_reparacion():
 
                     ventana_informacion = tk.Toplevel()
                     ventana_informacion.title("Información de la Reparación")
-                    ventana_informacion.geometry("600x400")
+                    ventana_informacion.geometry("600x900")
                     ventana_informacion.configure(bg="snow2")
 
                     texto_informacion = tk.Text(ventana_informacion, font=("Arial", 14), wrap=tk.WORD, bg="snow2")

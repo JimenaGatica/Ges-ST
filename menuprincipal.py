@@ -26,10 +26,10 @@ def mostrar_menu_principal(ventana_inicio):
     boton_presupuestos = tk.Button(ventana_menu, text="Presupuesto", command=presupuestos.presupuesto, font=("Arial", 16), bg="#B2EBF2", padx=20, pady=10)
     boton_presupuestos.place(relx=0.35, rely=0.5, anchor=tk.CENTER)
 
-    boton_consultar_reparacion = tk.Button(ventana_menu, text="Consultar Reparación", command=consulta.consultar_reparacion, font=("Arial", 16), bg="#B2EBF2", padx=20, pady=10)
+    boton_consultar_reparacion = tk.Button(ventana_menu, text="Ver Reparaciones", command=consulta.consultar_reparacion, font=("Arial", 16), bg="#B2EBF2", padx=20, pady=10)
     boton_consultar_reparacion.place(relx=0.5, rely=0.2, anchor=tk.CENTER)
 
-    boton_estado_reparacion = tk.Button(ventana_menu, text="Estado de Reparación", command=estado.gestion_estados, font=("Arial", 16), bg="#B2EBF2", padx=20, pady=10)
+    boton_estado_reparacion = tk.Button(ventana_menu, text="Modificar Estado de Reparación", command=estado.gestion_estados, font=("Arial", 16), bg="#B2EBF2", padx=20, pady=10)
     boton_estado_reparacion.place(relx=0.8, rely=0.2, anchor=tk.CENTER)
 
     boton_salir = tk.Button(ventana_menu, text="Salir", command=volver_a_inicio, font=("Arial", 16), bg="#FFC107", padx=20, pady=10)

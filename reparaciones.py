@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import messagebox
 import sqlite3
 import consulta
+import datetime
 
 def crear_tabla_reparaciones():
     try:
@@ -91,11 +92,13 @@ def nueva_reparacion():
             cursor = conexion.cursor()
             cursor.execute("SELECT fecha_ingreso FROM reparaciones WHERE numero_orden = ?", (numero_orden,))
             resultado = cursor.fetchone()
-            fecha_ingreso = resultado[0]
+            fecha_ingreso_db = datetime.datetime.strptime(resultado[0], "%Y-%m-%d %H:%M:%S")
+            fecha_ingreso_formateada = fecha_ingreso_db.strftime("%H:%M %d %m %Y")
+            
             conexion.close()
 
             informacion = f"Número de Orden: {numero_orden}\n" \
-                          f"Fecha de Ingreso: {fecha_ingreso}\n" \
+                          f"Fecha de Ingreso: {fecha_ingreso_formateada}\n" \
                           f"Datos del Cliente:\n" \
                           f"  Nombre y Apellido: {nombre_apellido}\n" \
                           f"  DNI: {dni}\n" \
@@ -105,18 +108,31 @@ def nueva_reparacion():
                           f"  Modelo: {modelo}\n" \
                           f"  Falla: {falla}\n" \
                           f"  Observaciones: {observaciones}"
+            
+            
 
             # Crear una nueva ventana para mostrar la información
             ventana_info = tk.Toplevel()
             ventana_info.title("Información de la Reparación")
-            ventana_info.geometry("600x400")  # Tamaño de la ventana aumentado
+            ventana_info.geometry("700x600+100+50")  # Tamaño de la ventana aumentado
             ventana_info.configure(bg="snow2") #color de fondo
+
+            
 
             # Crear un widget Text para mostrar la información con formato
             texto_info = tk.Text(ventana_info, font=("Arial", 14), wrap=tk.WORD, bg="snow2") #fuente mas grande y color de fondo
             texto_info.insert(tk.END, informacion)
             texto_info.config(state=tk.DISABLED)  # Hacer que el texto sea de solo lectura
             texto_info.pack(padx=20, pady=20, fill=tk.BOTH, expand=True) #padding y expandir el texto
+
+            def cerrar_ventanas():
+                ventana_info.destroy()
+                ventana_reparacion.destroy()
+                
+
+            boton_salir_info = tk.Button(ventana_info, text="Salir", command=cerrar_ventanas, font=("Arial", 16), bg="#FFC107")
+            boton_salir_info.place(relx=0.5, rely=0.8, anchor=tk.CENTER)
+
 
             ventana_reparacion.destroy()
 
