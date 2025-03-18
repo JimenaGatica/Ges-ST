@@ -52,7 +52,7 @@ def consultar_reparacion():
 
                     ventana_informacion = tk.Toplevel()
                     ventana_informacion.title("Información de la Reparación")
-                    ventana_informacion.geometry("600x600+50+50")
+                    ventana_informacion.geometry("900x600+50+50")
                     ventana_informacion.configure(bg="snow2")
 
                     texto_informacion = tk.Text(ventana_informacion, font=("Arial", 14), wrap=tk.WORD, bg="snow2")

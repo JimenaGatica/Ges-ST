@@ -13,21 +13,27 @@ def verificar_credenciales():
         conexion = sqlite3.connect("usuarios.db")
         cursor = conexion.cursor()
         cursor.execute("SELECT rol FROM usuarios WHERE usuario = ? AND clave = ?", (usuario, clave))
-        resultado = cursor.fetchone()
-        conexion.close()
+        resultado_rol = cursor.fetchone()
 
-        if resultado:
-            rol_usuario = resultado[0]
+        if resultado_rol:
+            rol_usuario = resultado_rol[0]
             ventana_inicio.withdraw()
+
+            # Obtener el nombre de usuario completo
+            cursor.execute("SELECT nombre FROM usuarios WHERE usuario = ?", (usuario,))
+            resultado_nombre = cursor.fetchone()
+            nombre_usuario = resultado_nombre[0] if resultado_nombre else usuario  # Usar el usuario si no se encuentra el nombre
+
             if rol_usuario == "Administrador":
                 menuprincipal.mostrar_menu_principal(ventana_inicio)
             elif rol_usuario == "Técnico":
-                menutecnico.mostrar_menu_tecnico(ventana_inicio)
+                menutecnico.mostrar_menu_tecnico(ventana_inicio, nombre_usuario)
             elif rol_usuario == "Atención al Público":
                 menuatpu.mostrar_menu_atencion_publico(ventana_inicio)
             clave_entry.delete(0, tk.END)
         else:
             messagebox.showerror("Error", " Usuario o Clave incorrecta. Intente nuevamente.")
+        conexion.close()
     except sqlite3.Error as e:
         messagebox.showerror("Error", f"Error al verificar credenciales: {e}")
 
