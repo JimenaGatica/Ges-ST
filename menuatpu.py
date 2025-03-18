@@ -43,7 +43,7 @@ def mostrar_menu_atencion_publico(ventana_inicio):
     modificar_estado_label=tk.Label(ventana_menu, text="Modificar el estado de la Reparación", font=("Arial", 16), bg="snow2")
     modificar_estado_label.place(relx=0.2, rely=0.6, anchor=tk.CENTER)
     
-    boton_estado_reparacion = tk.Button(ventana_menu, text="Modificar Estado", command=estado.gestion_estados, font=("Arial", 16), bg="#B2EBF2")
+    boton_estado_reparacion = tk.Button(ventana_menu, text="Modificar Estado", command=estado.modificar_estado, font=("Arial", 16), bg="#B2EBF2")
     boton_estado_reparacion.place(relx=0.7, rely=0.6, anchor=tk.CENTER)
 
 
